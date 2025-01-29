@@ -12,3 +12,5 @@ public class TaskManagementApplication {
 	}
 
 }
+
+// Devtools tem o hot swap que permite atualizar o codigo sem precisar reiniciar o servidor, assim economizando tempo

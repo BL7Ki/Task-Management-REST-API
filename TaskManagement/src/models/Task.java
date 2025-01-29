@@ -1,51 +1,37 @@
 package TaskManagement.src.models;
 
-import org.springframework.data.annotation.Id;
+import lombok.*;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity // Entity seria uma tabela. Sem essa anotação, o JPA não reconhecerá essa classe como uma entidade.
+@Getter @Setter // Lombok cria os métodos get e set automaticamente
+@NoArgsConstructor // Lombok cria um construtor vazio automaticamente
+@AllArgsConstructor // Lombok cria um construtor com todos os argumentos
+@ToString // Lombok cria um método toString automaticamente
 public class Task {
+
     @Id // Indica que esse atributo será uma chave primária
-    @GeneratedValue(strategy = GenerationType.AUTO) // Indica que essa chave primária será gerada automaticamente. Estao em cima de id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//Sera gerado automaticamente, melhor pra mysql pq ja usa autoincrement do banco. Estao em cima de id
     private Long id;
+
     private String title;
     private String description;
-    private String status;
 
-    public Task(Long id, String title, String description, String status) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.status = status;
+    @Enumerated(EnumType.STRING) // Transforma o ENUM em string no banco
+    private TaskStatus status; // Vantagem de deixar ENUM eh que pode padronizar os status como: PENDENTE, EM_ANDAMENTO, FINALIZADO
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    @PrePersist // Define comportamento antes de salvar no banco
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public Task() {} // construtor vazio
-
-    public Long getId() {
-        return id;
+    @PreUpdate // Define comportamento antes de atualizar no banco
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getStatus() { 
-        return status;
-    }
-
-    public void setTitle(Long title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
 }
