@@ -1,7 +1,7 @@
-package TaskManagement.src.models;
+package com.example.TaskManagement.models;
 
 import lombok.*;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity // Entity seria uma tabela. Sem essa anotação, o JPA não reconhecerá essa classe como uma entidade.
