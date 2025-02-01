@@ -20,5 +20,5 @@ record TaskDTO(Long id, String title, String description, String status) {}
 /*
  * Criar um DTO(Data Transfer Object) serve para transferir apenas os dados necessarios, porque
  * o controller nao precisa saber sobre o mundo interno da aplicacao, supondo que tivesse um campo como algo mais privado/pessoal
- * Assim o frontend recebe apenas os dados necessarios no formato json ja. Eh uma melhoria de seguranca
+ * Assim o frontend recebe apenas os dados necessarios no formato json ja. Eh uma melhoria de seguranca.
  */
