@@ -1,10 +1,12 @@
 package com.example.TaskManagement.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController // Define que essa classe é um controlador REST. Uma juncao de @Controller e @ResponseBody
+@CrossOrigin(origins = "http://localhost:4200") // Permite requisições do frontend Angular
 @RequestMapping("/tasks") // Define a URL base
 public class TaskController {
 
