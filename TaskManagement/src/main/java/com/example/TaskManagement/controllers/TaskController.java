@@ -4,9 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +45,30 @@ public class TaskController {
     @PostMapping
     public Task createTask(@RequestBody Task task) {
         return taskRepository.save(task);
-    } // poder adicionar novas tarefas pelo postman
+    }
+
+    @PutMapping("/{id}") // just id because RequestMapping is already defined
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
+        return taskRepository.findById(id)
+                .map(task -> {
+                    task.setTitle(updatedTask.getTitle());
+                    task.setDescription(updatedTask.getDescription());
+                    task.setStatus(updatedTask.getStatus());
+                    Task savedTask = taskRepository.save(task);
+                    return ResponseEntity.ok(savedTask);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        return taskRepository.findById(id)
+            .map(task -> {
+                taskRepository.delete(task);
+                return ResponseEntity.noContent().<Void>build(); // 204 No Content
+            })
+            .orElse(ResponseEntity.notFound().build()); // 404 Not Found if id task not found
+    } // ReponseEntity is a container for the response status code, headers, and body. Making it easier to handle responses
 
     // DTO para transferir apenas os dados necessários
     public static class TaskDTO {
