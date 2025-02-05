@@ -10,6 +10,8 @@ import { Task } from '../models/task.model';
 export class TaskListComponent implements OnInit {
 
   tasks: Task[] = [];
+  isLoading: boolean = true;
+  errorMessage: string | null = null;
 
   constructor(private taskService: TaskService) { }
 
@@ -18,8 +20,17 @@ export class TaskListComponent implements OnInit {
   }
 
   loadTasks(): void {
-    this.taskService.getTasks().subscribe((data) => {
-      this.tasks = data;
+    this.isLoading = true;
+    this.taskService.getTasks().subscribe({
+      next: (data) => {
+        this.tasks = data;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar tarefas', err);
+        this.errorMessage = 'Ocorreu um erro ao carregar as tarefas.';
+        this.isLoading = false;
+      }
     });
   }
 }

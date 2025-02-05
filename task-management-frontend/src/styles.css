@@ -1,1 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
+/* Estilo geral do container de tarefas */
+.task-list-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Estilo da lista de tarefas */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  li:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Título e conteúdo das tarefas */
+  li .task-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  li .task-description {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Estilo para tarefas concluídas */
+  li.completed {
+    background-color: #e0ffe0;
+    text-decoration: line-through;
+    color: #a0a0a0;
+  }
+  
+  /* Estilo para o indicador de carregamento */
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+  }
+  
+  .loading::after {
+    content: 'Carregando...';
+    font-size: 16px;
+    color: #888;
+  }
+  
+  /* Estilo para ícones ou botões (por exemplo, para marcar tarefas como concluídas) */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
