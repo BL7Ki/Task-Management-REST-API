@@ -16,21 +16,27 @@ export class TaskListComponent implements OnInit {
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
+    console.log('TaskListComponent inicializado.');
     this.loadTasks();
   }
 
   loadTasks(): void {
+    console.log('Iniciando carregamento de tarefas...');
     this.isLoading = true;
+    this.errorMessage = null;
+
     this.taskService.getTasks().subscribe({
       next: (data) => {
+        console.log('Tarefas carregadas com sucesso:', data);
         this.tasks = data;
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Erro ao carregar tarefas', err);
+        console.error('Erro ao carregar tarefas:', err);
         this.errorMessage = 'Ocorreu um erro ao carregar as tarefas.';
         this.isLoading = false;
-      }
+      },
+      complete: () => console.log('Requisição de tarefas finalizada.')
     });
   }
 }
